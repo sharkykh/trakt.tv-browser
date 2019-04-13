@@ -1,7 +1,7 @@
 'use strict';
 
 // requirejs modules
-const got = require('got');
+const ky = require('ky').default;
 const crypto = require('crypto');
 const methods = require('./methods.json');
 const sanitizer = require('sanitizer').sanitize;
@@ -83,14 +83,16 @@ module.exports = class Trakt {
         };
 
         this._debug(req);
-        return got(req.url, req).then(response => {
-            const body = JSON.parse(response.body);
+        return ky(req.url, req).then(response => {
+            return response.json().then(body => {
+                this._authentication.refresh_token = body.refresh_token;
+                this._authentication.access_token = body.access_token;
+                this._authentication.expires = (body.created_at + body.expires_in) * 1000;
 
-            this._authentication.refresh_token = body.refresh_token;
-            this._authentication.access_token = body.access_token;
-            this._authentication.expires = (body.created_at + body.expires_in) * 1000;
-
-            return this._sanitize(body);
+                return this._sanitize(body);
+            }).catch(error => {
+                throw error;
+            });
         }).catch(error => {
             throw (error.response && error.response.statusCode == 401) ? Error(error.response.headers['www-authenticate']) : error;
         });
@@ -111,7 +113,7 @@ module.exports = class Trakt {
             body: `token=[${this._authentication.access_token}]`
         };
         this._debug(req);
-        got(req.url, req);
+        ky(req.url, req);
     }
 
     // Get code to paste on login screen
@@ -127,7 +129,13 @@ module.exports = class Trakt {
         };
 
         this._debug(req);
-        return got(req.url, req).then(response => this._sanitize(JSON.parse(response.body))).catch(error => {
+        return ky(req.url, req).then(response => {
+            return response.json()
+                .then(data => this._sanitize(data))
+                .catch(error => {
+                    throw error;
+                })
+        }).catch(error => {
             throw (error.response && error.response.statusCode == 401) ? Error(error.response.headers['www-authenticate']) : error;
         });
     }
@@ -179,7 +187,7 @@ module.exports = class Trakt {
         }
 
         // Extended
-        if (method.opts['extended'] && params['extended']) {            
+        if (method.opts['extended'] && params['extended']) {
             queryParts.push(`extended=${params['extended']}`);
         }
 
@@ -215,40 +223,48 @@ module.exports = class Trakt {
             if (!req.body[k]) delete req.body[k];
         }
 
-        req.body = JSON.stringify(req.body);
+        // Fixes: `TypeError: Failed to execute 'fetch' on 'Window': Request with GET/HEAD method cannot have body.`
+        if (['GET', 'HEAD'].includes(req.method.toUpperCase())) {
+            req.body = null;
+        } else {
+            req.body = JSON.stringify(req.body);
+        }
 
         this._debug(req);
-        return got(req.url, req).then(response => this._parseResponse(method, params, response));
+        return ky(req.url, req).then(response => this._parseResponse(method, params, response));
     }
 
     // Parse trakt response: pagination & stuff
     _parseResponse (method, params, response) {
-        if (!response.body) return response.body;
+        return response.json()
+            .then(data => {
+                let parsed = data;
 
-        const data = JSON.parse(response.body);
-        let parsed = data;
+                if ((params && params.pagination) || this._settings.pagination) {
+                    parsed = {
+                        data: data
+                    };
 
-        if ((params && params.pagination) || this._settings.pagination) {
-            parsed = {
-                data: data
-            };
+                    if (method.opts.pagination && response.headers) {
+                        // http headers field names are case-insensitive
+                        let headers = JSON.parse(JSON.stringify(response.headers).toLowerCase());
 
-            if (method.opts.pagination && response.headers) {
-                // http headers field names are case-insensitive
-                let headers = JSON.parse(JSON.stringify(response.headers).toLowerCase());
-                
-                parsed.pagination = {
-                    'item-count': headers['x-pagination-item-count'],
-                    'limit': headers['x-pagination-limit'],
-                    'page': headers['x-pagination-page'],
-                    'page-count': headers['x-pagination-page-count'],
-                };
-            } else {
-                parsed.pagination = false;
-            }
-        }
+                        parsed.pagination = {
+                            'item-count': headers['x-pagination-item-count'],
+                            'limit': headers['x-pagination-limit'],
+                            'page': headers['x-pagination-page'],
+                            'page-count': headers['x-pagination-page-count'],
+                        };
+                    } else {
+                        parsed.pagination = false;
+                    }
+                }
 
-        return this._sanitize(parsed);
+                return this._sanitize(parsed);
+            }).catch(error => {
+                console.error(error);
+                return undefined;
+            });
     }
 
     // Sanitize output (xss)
