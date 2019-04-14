@@ -236,7 +236,7 @@ module.exports = class Trakt {
 
     // Parse trakt response: pagination & stuff
     _parseResponse (method, params, response) {
-        return response.json()
+        return response.clone().json().catch(() => response.text())
             .then(data => {
                 let parsed = data;
 
@@ -261,9 +261,6 @@ module.exports = class Trakt {
                 }
 
                 return this._sanitize(parsed);
-            }).catch(error => {
-                console.error(error);
-                return undefined;
             });
     }
 
