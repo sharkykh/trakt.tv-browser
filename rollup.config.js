@@ -1,6 +1,7 @@
 import stripCode from 'rollup-plugin-strip-code';
 import replace from 'rollup-plugin-replace';
 import babel from 'rollup-plugin-babel';
+import json from 'rollup-plugin-json';
 import pkg from './package.json';
 
 export default {
@@ -22,6 +23,7 @@ export default {
         'pkg.repository.url': pkg.repository.url,
       }
     }),
+    json(),
     babel({
       babelrc: false,
       presets: [

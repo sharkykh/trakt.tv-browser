@@ -1,12 +1,12 @@
 'use strict';
 
 // requirejs modules
-const ky = require('ky').default;
-const randomBytes = require('randombytes');
-const methods = require('./methods.json');
-const sanitizer = require('sanitizer').sanitize;
+import ky from 'ky';
+import randomBytes from 'randombytes';
+import methods from './methods.json';
+import { sanitize as sanitizer } from 'sanitizer';
 /* START.ROLLUP_REMOVE */
-const pkg = require('../package.json');
+import pkg from '../package.json';
 /* END.ROLLUP_REMOVE */
 
 // default settings
@@ -14,7 +14,7 @@ const defaultUrl = 'https://api.trakt.tv';
 const redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
 const defaultUa = `${pkg.name}/${pkg.version} (${pkg.repository.url})`;
 
-module.exports = class Trakt {
+export default class Trakt {
     constructor(settings = {}, debug) {
         if (!settings.client_id) throw Error('Missing client_id');
 
