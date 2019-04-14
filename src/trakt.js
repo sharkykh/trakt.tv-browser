@@ -13,6 +13,7 @@ import pkg from '../package.json';
 const defaultUrl = 'https://api.trakt.tv';
 const redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
 const defaultUa = `${pkg.name}/${pkg.version} (${pkg.repository.url})`;
+const sendUserAgent = window.navigator.userAgent.indexOf('Edge') === -1;
 
 export default class Trakt {
     constructor(settings = {}, debug) {
@@ -78,7 +79,7 @@ export default class Trakt {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/token`,
             headers: {
-                'User-Agent': this._settings.useragent,
+                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(str)
@@ -106,7 +107,7 @@ export default class Trakt {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/revoke`,
             headers: {
-                'User-Agent': this._settings.useragent,
+                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization' : `Bearer ${this._authentication.access_token}`,
                 'trakt-api-version': '2',
@@ -124,7 +125,7 @@ export default class Trakt {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/device/${type}`,
             headers: {
-                'User-Agent': this._settings.useragent,
+                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(str)
@@ -208,7 +209,7 @@ export default class Trakt {
             method: method.method,
             url: this._parse(method, params),
             headers: {
-                'User-Agent': this._settings.useragent,
+                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
                 'Content-Type': 'application/json',
                 'trakt-api-version': '2',
                 'trakt-api-key': this._settings.client_id

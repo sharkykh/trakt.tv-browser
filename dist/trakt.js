@@ -28,6 +28,40 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
 var methods = {
 	"/calendars/my/shows": {
 	opts: {
@@ -1763,6 +1797,7 @@ var methods = {
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
 var defaultUa = "trakt.tv-browser/7.1.0 (https://github.com/sharkykh/trakt.tv-browser)";
+var sendUserAgent = window.navigator.userAgent.indexOf('Edge') === -1;
 
 var Trakt =
 /*#__PURE__*/
@@ -1851,10 +1886,11 @@ function () {
       var req = {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/token"),
-        headers: {
-          'User-Agent': this._settings.useragent,
+        headers: _objectSpread({}, sendUserAgent && {
+          'User-Agent': this._settings.useragent
+        }, {
           'Content-Type': 'application/json'
-        },
+        }),
         body: JSON.stringify(str)
       };
 
@@ -1880,13 +1916,14 @@ function () {
       var req = {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/revoke"),
-        headers: {
-          'User-Agent': this._settings.useragent,
+        headers: _objectSpread({}, sendUserAgent && {
+          'User-Agent': this._settings.useragent
+        }, {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': "Bearer ".concat(this._authentication.access_token),
           'trakt-api-version': '2',
           'trakt-api-key': this._settings.client_id
-        },
+        }),
         body: "token=[".concat(this._authentication.access_token, "]")
       };
 
@@ -1903,10 +1940,11 @@ function () {
       var req = {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/device/").concat(type),
-        headers: {
-          'User-Agent': this._settings.useragent,
+        headers: _objectSpread({}, sendUserAgent && {
+          'User-Agent': this._settings.useragent
+        }, {
           'Content-Type': 'application/json'
-        },
+        }),
         body: JSON.stringify(str)
       };
 
@@ -1990,12 +2028,13 @@ function () {
       var req = {
         method: method.method,
         url: this._parse(method, params),
-        headers: {
-          'User-Agent': this._settings.useragent,
+        headers: _objectSpread({}, sendUserAgent && {
+          'User-Agent': this._settings.useragent
+        }, {
           'Content-Type': 'application/json',
           'trakt-api-version': '2',
           'trakt-api-key': this._settings.client_id
-        },
+        }),
         body: method.body ? Object.assign({}, method.body) : {}
       };
       if (method.opts['auth'] && this._authentication.access_token) req.headers['Authorization'] = "Bearer ".concat(this._authentication.access_token);
