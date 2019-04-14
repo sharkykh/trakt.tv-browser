@@ -1,5 +1,5 @@
-# trakt.tv
-**Trakt.tv API wrapper for Node.js, featuring:**
+# trakt.tv-browser
+**Trakt.tv API wrapper for the browser, featuring:**
 
 - [All Trakt.tv API v2 methods](docs/available_methods.md)
 - Promises

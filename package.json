@@ -1,5 +1,5 @@
 {
-    "name": "trakt.tv",
+    "name": "trakt.tv-browser",
     "version": "7.1.0",
     "description": "Interact with Trakt.tv API in browser",
     "keywords": [
@@ -15,10 +15,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/sharkykh/trakt.tv"
+        "url": "https://github.com/sharkykh/trakt.tv-browser"
     },
     "bugs": {
-        "url": "https://github.com/sharkykh/trakt.tv/issues"
+        "url": "https://github.com/sharkykh/trakt.tv-browser/issues"
     },
     "dependencies": {
         "ky": "^0.9.1",

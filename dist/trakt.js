@@ -1762,7 +1762,7 @@ var methods = {
 
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv/7.1.0 (https://github.com/sharkykh/trakt.tv)";
+var defaultUa = "trakt.tv-browser/7.1.0 (https://github.com/sharkykh/trakt.tv-browser)";
 
 var Trakt =
 /*#__PURE__*/
