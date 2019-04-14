@@ -5,7 +5,9 @@ const ky = require('ky').default;
 const randomBytes = require('randombytes');
 const methods = require('./methods.json');
 const sanitizer = require('sanitizer').sanitize;
-const pkg = require('./package.json');
+/* START.ROLLUP_REMOVE */
+const pkg = require('../package.json');
+/* END.ROLLUP_REMOVE */
 
 // default settings
 const defaultUrl = 'https://api.trakt.tv';
