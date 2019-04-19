@@ -13,7 +13,7 @@ import pkg from '../package.json';
 const defaultUrl = 'https://api.trakt.tv';
 const redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
 const defaultUa = `${pkg.name}/${pkg.version} (${pkg.repository.url})`;
-const sendUserAgent = window.navigator.userAgent.indexOf('Edge') === -1;
+const sendUserAgent = false;
 
 export default class Trakt {
     constructor(settings = {}, debug) {
