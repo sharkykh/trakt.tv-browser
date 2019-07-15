@@ -6,9 +6,14 @@ import pkg from './package.json';
 export default {
   input: 'src/trakt.js',
   output: {
-    file: 'dist/trakt.js',
+    file: pkg.main,
     format: 'cjs'
   },
+  external: [
+    'ky',
+    'randombytes',
+    'sanitizer'
+  ],
   plugins: [
     replace({
       values: {
@@ -20,10 +25,10 @@ export default {
       babelrc: false,
       presets: [
         ['@babel/preset-env', {
-          modules: false
+          modules: 'auto'
         }]
       ],
       exclude: 'node_modules/**'
-    })
+    }),
   ]
 };
