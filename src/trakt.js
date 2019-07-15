@@ -5,14 +5,11 @@ import ky from 'ky';
 import randomBytes from 'randombytes';
 import methods from './methods.json';
 import { sanitize as sanitizer } from 'sanitizer';
-/* START.ROLLUP_REMOVE */
-import pkg from '../package.json';
-/* END.ROLLUP_REMOVE */
 
 // default settings
 const defaultUrl = 'https://api.trakt.tv';
 const redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-const defaultUa = `${pkg.name}/${pkg.version} (${pkg.repository.url})`;
+const defaultUa = __DEFAULT_USER_AGENT__;
 const sendUserAgent = false;
 
 export default class Trakt {

@@ -1,4 +1,3 @@
-import stripCode from 'rollup-plugin-strip-code';
 import replace from 'rollup-plugin-replace';
 import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
@@ -11,16 +10,9 @@ export default {
     format: 'cjs'
   },
   plugins: [
-    stripCode({
-      start_comment: 'START.ROLLUP_REMOVE',
-      end_comment: 'END.ROLLUP_REMOVE'
-    }),
     replace({
-      delimiters: [ '${', '}' ],
       values: {
-        'pkg.name': pkg.name,
-        'pkg.version': pkg.version,
-        'pkg.repository.url': pkg.repository.url,
+        '__DEFAULT_USER_AGENT__': JSON.stringify(`${pkg.name}/${pkg.version} (${pkg.repository.url})`)
       }
     }),
     json(),
