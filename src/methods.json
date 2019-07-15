@@ -242,6 +242,24 @@
         "url": "/comments/updates/:comment_type/:type?include_replies=",
         "optional": ["comment_type", "type", "include_replies"]
     },
+    "/countries": {
+        "opts": {},
+        "method": "GET",
+        "url": "/countries/:type",
+        "optional": []
+    },
+    "/genres": {
+        "opts": {},
+        "method": "GET",
+        "url": "/genres/:type",
+        "optional": []
+    },
+    "/languages": {
+        "opts": {},
+        "method": "GET",
+        "url": "/languages/:type",
+        "optional": []
+    },
     "/lists/trending": {
         "opts": {
             "pagination": true
@@ -256,12 +274,6 @@
         },
         "method": "GET",
         "url": "/lists/popular",
-        "optional": []
-    },
-    "/genres": {
-        "opts": {},
-        "method": "GET",
-        "url": "/genres/:type",
         "optional": []
     },
     "/movies/trending": {
@@ -457,8 +469,8 @@
             "extended": ["full"]
         },
         "method": "GET",
-        "url": "/recommendations/movies/?limit=",
-        "optional": ["limit"]
+        "url": "/recommendations/movies/?limit=&ignore_collected=",
+        "optional": ["limit", "ignore_collected"]
     },
     "/recommendations/movies/hide": {
         "opts": {
@@ -474,8 +486,8 @@
             "extended": ["full"]
         },
         "method": "GET",
-        "url": "/recommendations/shows/?limit=",
-        "optional": ["limit"]
+        "url": "/recommendations/shows/?limit=&ignore_collected=",
+        "optional": ["limit", "ignore_collected"]
     },
     "/recommendations/shows/hide": {
         "opts": {
@@ -652,8 +664,8 @@
             "auth": true
         },
         "method": "GET",
-        "url": "/shows/:id/progress/collection?hidden=&specials=&count_specials=",
-        "optional": ["hidden", "specials", "count_specials"]
+        "url": "/shows/:id/progress/collection?hidden=&specials=&count_specials=&last_activity=",
+        "optional": ["hidden", "specials", "count_specials", "last_activity"]
     },
     "/shows/progress/watched": {
         "opts": {
@@ -661,8 +673,8 @@
             "extended": ["full"]
         },
         "method": "GET",
-        "url": "/shows/:id/progress/watched?hidden=&specials=&count_specials",
-        "optional": ["hidden", "specials", "count_specials"]
+        "url": "/shows/:id/progress/watched?hidden=&specials=&count_specials=&last_activity=",
+        "optional": ["hidden", "specials", "count_specials", "last_activity"]
     },
     "/shows/people": {
         "opts": {
@@ -855,6 +867,7 @@
         "body": {
             "movies": null,
             "shows": null,
+            "seasons": null,
             "episodes": null
         },
         "optional": []
@@ -868,6 +881,7 @@
         "body": {
             "movies": null,
             "shows": null,
+            "seasons": null,
             "episodes": null
         },
         "optional": []
