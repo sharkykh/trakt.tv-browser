@@ -1867,7 +1867,7 @@ function () {
   }, {
     key: "_uaHeader",
     value: function _uaHeader() {
-      return {};
+      return  {};
     } // Authentication calls
 
   }, {
