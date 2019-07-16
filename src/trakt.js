@@ -5,14 +5,11 @@ import ky from 'ky';
 import randomBytes from 'randombytes';
 import methods from './methods.json';
 import { sanitize as sanitizer } from 'sanitizer';
-/* START.ROLLUP_REMOVE */
-import pkg from '../package.json';
-/* END.ROLLUP_REMOVE */
 
 // default settings
 const defaultUrl = 'https://api.trakt.tv';
 const redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-const defaultUa = `${pkg.name}/${pkg.version} (${pkg.repository.url})`;
+const defaultUa = __DEFAULT_USER_AGENT__;
 const sendUserAgent = false;
 
 export default class Trakt {
@@ -73,15 +70,18 @@ export default class Trakt {
         this._settings.debug && console.log(req.method ? `${req.method}: ${req.url}` : req);
     }
 
+    _uaHeader() {
+        return sendUserAgent ? { 'User-Agent': this._settings.useragent } : {};
+    }
+
     // Authentication calls
     _exchange(str) {
         const req = {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/token`,
-            headers: {
-                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
+            headers: Object.assign(this._uaHeader, {
                 'Content-Type': 'application/json'
-            },
+            }),
             body: JSON.stringify(str)
         };
 
@@ -106,13 +106,12 @@ export default class Trakt {
         const req = {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/revoke`,
-            headers: {
-                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
+            headers: Object.assign(this._uaHeader, {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization' : `Bearer ${this._authentication.access_token}`,
                 'trakt-api-version': '2',
                 'trakt-api-key': this._settings.client_id
-            },
+            }),
             body: `token=[${this._authentication.access_token}]`
         };
         this._debug(req);
@@ -124,10 +123,9 @@ export default class Trakt {
         const req = {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/device/${type}`,
-            headers: {
-                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
+            headers: Object.assign(this._uaHeader, {
                 'Content-Type': 'application/json'
-            },
+            }),
             body: JSON.stringify(str)
         };
 
@@ -208,12 +206,11 @@ export default class Trakt {
         const req = {
             method: method.method,
             url: this._parse(method, params),
-            headers: {
-                ...sendUserAgent && { 'User-Agent': this._settings.useragent },
+            headers: Object.assign(this._uaHeader, {
                 'Content-Type': 'application/json',
                 'trakt-api-version': '2',
                 'trakt-api-key': this._settings.client_id
-            },
+            }),
             body: (method.body ? Object.assign({}, method.body) : {})
         };
 
