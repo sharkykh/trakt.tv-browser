@@ -390,6 +390,30 @@ var methods = {
 		"include_replies"
 	]
 },
+	"/countries": {
+	opts: {
+	},
+	method: "GET",
+	url: "/countries/:type",
+	optional: [
+	]
+},
+	"/genres": {
+	opts: {
+	},
+	method: "GET",
+	url: "/genres/:type",
+	optional: [
+	]
+},
+	"/languages": {
+	opts: {
+	},
+	method: "GET",
+	url: "/languages/:type",
+	optional: [
+	]
+},
 	"/lists/trending": {
 	opts: {
 		pagination: true
@@ -405,14 +429,6 @@ var methods = {
 	},
 	method: "GET",
 	url: "/lists/popular",
-	optional: [
-	]
-},
-	"/genres": {
-	opts: {
-	},
-	method: "GET",
-	url: "/genres/:type",
 	optional: [
 	]
 },
@@ -683,9 +699,10 @@ var methods = {
 		]
 	},
 	method: "GET",
-	url: "/recommendations/movies/?limit=",
+	url: "/recommendations/movies/?limit=&ignore_collected=",
 	optional: [
-		"limit"
+		"limit",
+		"ignore_collected"
 	]
 },
 	"/recommendations/movies/hide": {
@@ -705,9 +722,10 @@ var methods = {
 		]
 	},
 	method: "GET",
-	url: "/recommendations/shows/?limit=",
+	url: "/recommendations/shows/?limit=&ignore_collected=",
 	optional: [
-		"limit"
+		"limit",
+		"ignore_collected"
 	]
 },
 	"/recommendations/shows/hide": {
@@ -936,11 +954,12 @@ var methods = {
 		auth: true
 	},
 	method: "GET",
-	url: "/shows/:id/progress/collection?hidden=&specials=&count_specials=",
+	url: "/shows/:id/progress/collection?hidden=&specials=&count_specials=&last_activity=",
 	optional: [
 		"hidden",
 		"specials",
-		"count_specials"
+		"count_specials",
+		"last_activity"
 	]
 },
 	"/shows/progress/watched": {
@@ -951,11 +970,12 @@ var methods = {
 		]
 	},
 	method: "GET",
-	url: "/shows/:id/progress/watched?hidden=&specials=&count_specials",
+	url: "/shows/:id/progress/watched?hidden=&specials=&count_specials=&last_activity=",
 	optional: [
 		"hidden",
 		"specials",
-		"count_specials"
+		"count_specials",
+		"last_activity"
 	]
 },
 	"/shows/people": {
@@ -1213,6 +1233,7 @@ var methods = {
 	body: {
 		movies: null,
 		shows: null,
+		seasons: null,
 		episodes: null
 	},
 	optional: [
@@ -1227,6 +1248,7 @@ var methods = {
 	body: {
 		movies: null,
 		shows: null,
+		seasons: null,
 		episodes: null
 	},
 	optional: [
@@ -1796,7 +1818,7 @@ var methods = {
 
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/7.1.0 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/7.2.0 (https://github.com/sharkykh/trakt.tv-browser)";
 var sendUserAgent = false;
 
 var Trakt =
