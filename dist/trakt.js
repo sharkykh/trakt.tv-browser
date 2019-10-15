@@ -1907,12 +1907,13 @@ function () {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/revoke"),
         headers: Object.assign(this._uaHeader, {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': "Bearer ".concat(this._authentication.access_token),
-          'trakt-api-version': '2',
-          'trakt-api-key': this._settings.client_id
+          'Content-Type': 'application/json'
         }),
-        body: "token=[".concat(this._authentication.access_token, "]")
+        body: JSON.stringify({
+          token: this._authentication.access_token,
+          client_id: this._settings.client_id,
+          client_secret: this._settings.client_secret
+        })
       };
 
       this._debug(req);
