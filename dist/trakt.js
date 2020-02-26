@@ -947,7 +947,8 @@ var methods = {
 	"/shows/people": {
 	opts: {
 		extended: [
-			"full"
+			"full",
+			"guest_stars"
 		]
 	},
 	method: "GET",
@@ -1061,6 +1062,17 @@ var methods = {
 		"sort"
 	]
 },
+	"/seasons/people": {
+	opts: {
+		extended: [
+			"guest_stars"
+		]
+	},
+	method: "GET",
+	url: "/shows/:id/seasons/:season/people",
+	optional: [
+	]
+},
 	"/seasons/ratings": {
 	opts: {
 	},
@@ -1119,6 +1131,17 @@ var methods = {
 	optional: [
 		"type",
 		"sort"
+	]
+},
+	"/episodes/people": {
+	opts: {
+		extended: [
+			"guest_stars"
+		]
+	},
+	method: "GET",
+	url: "/shows/:id/seasons/:season/episodes/:episode/people",
+	optional: [
 	]
 },
 	"/episodes/ratings": {
@@ -1283,6 +1306,7 @@ var methods = {
 	"/sync/ratings/get": {
 	opts: {
 		auth: true,
+		pagination: "optional",
 		extended: [
 			"full"
 		]
@@ -1726,6 +1750,7 @@ var methods = {
 	"/users/ratings": {
 	opts: {
 		auth: "optional",
+		pagination: "optional",
 		extended: [
 			"full"
 		]
@@ -1786,7 +1811,7 @@ var methods = {
 
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/7.2.0 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/8.0.0 (https://github.com/sharkykh/trakt.tv-browser)";
 
 var Trakt =
 /*#__PURE__*/
@@ -1968,7 +1993,7 @@ function () {
 
         for (var i in queryParams) {
           var name = queryParams[i].split('=')[0];
-          (params[name] || params[name] === 0) && queryParts.push("".concat(name, "=").concat(params[name]));
+          (params[name] || params[name] === 0) && queryParts.push("".concat(name, "=").concat(encodeURIComponent(params[name])));
         }
       } // /part
 
@@ -1995,7 +2020,7 @@ function () {
       var filters = ['query', 'years', 'genres', 'languages', 'countries', 'runtimes', 'ratings', 'certifications', 'networks', 'status'];
 
       for (var p in params) {
-        filters.indexOf(p) !== -1 && queryParts.indexOf("".concat(p, "=").concat(params[p])) === -1 && queryParts.push("".concat(p, "=").concat(params[p]));
+        filters.indexOf(p) !== -1 && queryParts.indexOf("".concat(p, "=").concat(encodeURIComponent(params[p]))) === -1 && queryParts.push("".concat(p, "=").concat(encodeURIComponent(params[p])));
       } // Pagination
 
 
@@ -2041,7 +2066,7 @@ function () {
 
 
       if (['GET', 'HEAD'].includes(req.method.toUpperCase())) {
-        req.body = null;
+        delete req.body;
       } else {
         req.body = JSON.stringify(req.body);
       }
