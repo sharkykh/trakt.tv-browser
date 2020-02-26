@@ -678,7 +678,7 @@
     },
     "/shows/people": {
         "opts": {
-            "extended": ["full"]
+            "extended": ["full", "guest_stars"]
         },
         "method": "GET",
         "url": "/shows/:id/people",
@@ -761,6 +761,14 @@
         "url": "/shows/:id/seasons/:season/lists/:type/:sort",
         "optional": ["type", "sort"]
     },
+    "/seasons/people": {
+        "opts": {
+            "extended": ["guest_stars"]
+        },
+        "method": "GET",
+        "url": "/shows/:id/seasons/:season/people",
+        "optional": []
+    },
     "/seasons/ratings": {
         "opts": {},
         "method": "GET",
@@ -804,6 +812,14 @@
         "method": "GET",
         "url": "/shows/:id/seasons/:season/episodes/:episode/lists/:type/:sort",
         "optional": ["type", "sort"]
+    },
+    "/episodes/people": {
+        "opts": {
+            "extended": ["guest_stars"]
+        },
+        "method": "GET",
+        "url": "/shows/:id/seasons/:season/episodes/:episode/people",
+        "optional": []
     },
     "/episodes/ratings": {
         "opts": {},
@@ -936,6 +952,7 @@
     "/sync/ratings/get": {
         "opts": {
             "auth": true,
+            "pagination": "optional",
             "extended": ["full"]
         },
         "method": "GET",
@@ -1304,6 +1321,7 @@
     "/users/ratings": {
         "opts": {
             "auth": "optional",
+            "pagination": "optional",
             "extended": ["full"]
         },
         "method": "GET",
