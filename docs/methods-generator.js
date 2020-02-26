@@ -1,7 +1,7 @@
 // generate formatted helpdocation
 
 const fs = require('fs')
-const methods = require('../methods.json')
+const methods = require('../src/methods.json')
 const pkjson = require('../package.json')
 
 let helpdoc = Array()
