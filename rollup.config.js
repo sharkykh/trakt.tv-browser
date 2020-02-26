@@ -1,6 +1,6 @@
-import replace from 'rollup-plugin-replace';
+import replace from '@rollup/plugin-replace';
 import babel from 'rollup-plugin-babel';
-import json from 'rollup-plugin-json';
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 
 export default {
