@@ -1259,6 +1259,7 @@ var methods = {
 	body: {
 		movies: null,
 		shows: null,
+		seasons: null,
 		episodes: null
 	},
 	optional: [
@@ -1302,6 +1303,7 @@ var methods = {
 	body: {
 		movies: null,
 		shows: null,
+		seasons: null,
 		episodes: null
 	},
 	optional: [

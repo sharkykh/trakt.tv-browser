@@ -1,6 +1,6 @@
 # Trakt.tv available methods 
 
-This help doc was last generated for trakt.tv@7.2.0 on Mon Jul 15 2019
+This help doc was last generated for trakt.tv-browser@7.2.0 on Wed Feb 26 2020
 
 ## How to read the table ?
 
@@ -143,10 +143,10 @@ trakt.seasons.comments({
 | trakt.sync.collection.remove() | required | *none* | movies, shows, seasons, episodes | *none* | *none* | POST | api.trakt.tv/sync/collection/remove |
 | trakt.sync.watched() | required | type | *none* | *none* | "full", "noseasons" | GET | api.trakt.tv/sync/watched/**type** |
 | trakt.sync.history.get() | required | *none* | type, id, start_at, end_at | paginated | "full" | GET | api.trakt.tv/sync/history |
-| trakt.sync.history.add() | required | *none* | movies, shows, episodes | *none* | *none* | POST | api.trakt.tv/sync/history |
+| trakt.sync.history.add() | required | *none* | movies, shows, seasons, episodes | *none* | *none* | POST | api.trakt.tv/sync/history |
 | trakt.sync.history.remove() | required | *none* | movies, shows, episodes, ids | *none* | *none* | POST | api.trakt.tv/sync/history/remove |
 | trakt.sync.ratings.get() | required | *none* | rating, type | *none* | "full" | GET | api.trakt.tv/sync/ratings |
-| trakt.sync.ratings.add() | required | *none* | movies, shows, episodes | *none* | *none* | POST | api.trakt.tv/sync/ratings |
+| trakt.sync.ratings.add() | required | *none* | movies, shows, seasons, episodes | *none* | *none* | POST | api.trakt.tv/sync/ratings |
 | trakt.sync.ratings.remove() | required | *none* | movies, shows, episodes | *none* | *none* | POST | api.trakt.tv/sync/ratings/remove |
 | trakt.sync.watchlist.get() | required | *none* | type | *optional* | "full" | GET | api.trakt.tv/sync/watchlist |
 | trakt.sync.watchlist.add() | required | *none* | movies, shows, episodes | *none* | *none* | POST | api.trakt.tv/sync/watchlist |
