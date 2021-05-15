@@ -1,10 +1,13 @@
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var ky = _interopDefault(require('ky'));
-var randomBytes = _interopDefault(require('randombytes'));
+var ky = require('ky');
+var randomBytes = require('randombytes');
 var sanitizer = require('sanitizer');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var ky__default = /*#__PURE__*/_interopDefaultLegacy(ky);
+var randomBytes__default = /*#__PURE__*/_interopDefaultLegacy(randomBytes);
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -1893,7 +1896,7 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "_uaHeader",
     value: function _uaHeader() {
-      return  {};
+      return {};
     } // Authentication calls
 
   }, {
@@ -1913,7 +1916,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      return ky(req.url, req).then(function (response) {
+      return ky__default['default'](req.url, req).then(function (response) {
         return response.json().then(function (body) {
           _this2._authentication.refresh_token = body.refresh_token;
           _this2._authentication.access_token = body.access_token;
@@ -1946,7 +1949,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      ky(req.url, req);
+      ky__default['default'](req.url, req);
     } // Get code to paste on login screen
 
   }, {
@@ -1966,7 +1969,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      return ky(req.url, req).then(function (response) {
+      return ky__default['default'](req.url, req).then(function (response) {
         return response.json().then(function (data) {
           return _this3._sanitize(data);
         })["catch"](function (error) {
@@ -2071,7 +2074,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      return ky(req.url, req).then(function (response) {
+      return ky__default['default'](req.url, req).then(function (response) {
         return _this4._parseResponse(method, params, response);
       });
     } // Parse trakt response: pagination & stuff
@@ -2146,7 +2149,7 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "get_url",
     value: function get_url() {
-      this._authentication.state = randomBytes(6).toString('hex'); // Replace 'api' from the api_url to get the top level trakt domain
+      this._authentication.state = randomBytes__default['default'](6).toString('hex'); // Replace 'api' from the api_url to get the top level trakt domain
 
       var base_url = this._settings.endpoint.replace(/api\W/, '');
 
