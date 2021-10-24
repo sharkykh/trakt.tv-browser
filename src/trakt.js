@@ -4,7 +4,6 @@
 import ky from 'ky';
 import randomBytes from 'randombytes';
 import methods from './methods.json';
-import { sanitize as sanitizer } from 'sanitizer';
 
 // default settings
 const defaultUrl = 'https://api.trakt.tv';
@@ -94,7 +93,7 @@ export default class Trakt {
                 this._authentication.access_token = body.access_token;
                 this._authentication.expires = (body.created_at + body.expires_in) * 1000;
 
-                return this._sanitize(body);
+                return body;
             }).catch(error => {
                 throw error;
             });
@@ -135,15 +134,11 @@ export default class Trakt {
         };
 
         this._debug(req);
-        return ky(req.url, req).then(response => {
-            return response.json()
-                .then(data => this._sanitize(data))
-                .catch(error => {
-                    throw error;
-                })
-        }).catch(error => {
-            throw (error.response && error.response.statusCode == 401) ? Error(error.response.headers['www-authenticate']) : error;
-        });
+        return ky(req.url, req)
+            .then(response => response.json())
+            .catch(error => {
+                throw (error.response && error.response.statusCode == 401) ? Error(error.response.headers['www-authenticate']) : error;
+            });
     }
 
     // Parse url before api call
@@ -266,35 +261,8 @@ export default class Trakt {
                     }
                 }
 
-                return this._sanitize(parsed);
+                return parsed;
             });
-    }
-
-    // Sanitize output (xss)
-    _sanitize(input) {
-        const sanitizeString = string => sanitizer(string);
-
-        const sanitizeObject = obj => {
-            const result = obj;
-            for (let prop in obj) {
-                result[prop] = obj[prop];
-                if (obj[prop] && (obj[prop].constructor === Object || obj[prop].constructor === Array)) {
-                    result[prop] = sanitizeObject(obj[prop]);
-                } else if (obj[prop] && obj[prop].constructor === String) {
-                    result[prop] = sanitizeString(obj[prop]);
-                }
-            }
-            return result;
-        }
-
-        let output = input;
-        if (input && (input.constructor === Object || input.constructor === Array)) {
-            output = sanitizeObject(input);
-        } else if (input && input.constructor === String) {
-            output = sanitizeString(input);
-        }
-
-        return output;
     }
 
     // Get authentication url for browsers

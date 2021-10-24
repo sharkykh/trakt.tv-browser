@@ -1,6 +1,6 @@
 {
     "name": "trakt.tv-browser",
-    "version": "8.0.0",
+    "version": "8.1.1",
     "description": "Interact with Trakt.tv API in browser",
     "keywords": [
         "trakt",
@@ -21,9 +21,8 @@
         "url": "https://github.com/sharkykh/trakt.tv-browser/issues"
     },
     "dependencies": {
-        "ky": "^0.28.1",
-        "randombytes": "^2.1.0",
-        "sanitizer": "^0.1.3"
+        "ky": "^0.28.6",
+        "randombytes": "^2.1.0"
     },
     "scripts": {
         "build": "rollup -c",

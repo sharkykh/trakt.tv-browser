@@ -2,7 +2,6 @@
 
 var ky = require('ky');
 var randomBytes = require('randombytes');
-var sanitizer = require('sanitizer');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -401,6 +400,45 @@ var methods = {
 	optional: [
 	]
 },
+	"/lists/get": {
+	opts: {
+	},
+	method: "GET",
+	url: "/lists/:id",
+	optional: [
+	]
+},
+	"/lists/likes": {
+	opts: {
+		pagination: true
+	},
+	method: "GET",
+	url: "/lists/:id/likes",
+	optional: [
+	]
+},
+	"/lists/items": {
+	opts: {
+		pagination: "optional",
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/lists/:id/items/:type",
+	optional: [
+	]
+},
+	"/lists/comments": {
+	opts: {
+		pagination: true
+	},
+	method: "GET",
+	url: "/lists/:id/comments/:sort",
+	optional: [
+		"sort"
+	]
+},
 	"/movies/trending": {
 	opts: {
 		pagination: true,
@@ -423,6 +461,19 @@ var methods = {
 	method: "GET",
 	url: "/movies/popular",
 	optional: [
+	]
+},
+	"/movies/recommended": {
+	opts: {
+		pagination: true,
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/movies/recommended/:period",
+	optional: [
+		"period"
 	]
 },
 	"/movies/played": {
@@ -496,6 +547,16 @@ var methods = {
 	},
 	method: "GET",
 	url: "/movies/updates/:start_date",
+	optional: [
+		"start_date"
+	]
+},
+	"/movies/updated_ids": {
+	opts: {
+		pagination: true
+	},
+	method: "GET",
+	url: "/movies/updates/id/:start_date",
 	optional: [
 		"start_date"
 	]
@@ -805,6 +866,19 @@ var methods = {
 	optional: [
 	]
 },
+	"/shows/recommended": {
+	opts: {
+		pagination: true,
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/shows/recommended/:period",
+	optional: [
+		"period"
+	]
+},
 	"/shows/played": {
 	opts: {
 		pagination: true,
@@ -869,6 +943,16 @@ var methods = {
 		"start_date"
 	]
 },
+	"/shows/updated_ids": {
+	opts: {
+		pagination: true
+	},
+	method: "GET",
+	url: "/shows/updates/id/:start_date",
+	optional: [
+		"start_date"
+	]
+},
 	"/shows/summary": {
 	opts: {
 		extended: [
@@ -885,6 +969,14 @@ var methods = {
 	},
 	method: "GET",
 	url: "/shows/:id/aliases",
+	optional: [
+	]
+},
+	"/shows/certifications": {
+	opts: {
+	},
+	method: "GET",
+	url: "/shows/:id/certifications",
 	optional: [
 	]
 },
@@ -945,6 +1037,24 @@ var methods = {
 		"specials",
 		"count_specials",
 		"last_activity"
+	]
+},
+	"/shows/progress/reset": {
+	opts: {
+		auth: true
+	},
+	method: "POST",
+	url: "/shows/:id/progress/watched/reset",
+	optional: [
+	]
+},
+	"/shows/progress/undo_reset": {
+	opts: {
+		auth: true
+	},
+	method: "DELETE",
+	url: "/shows/:id/progress/watched/reset",
+	optional: [
 	]
 },
 	"/shows/people": {
@@ -1081,6 +1191,14 @@ var methods = {
 	},
 	method: "GET",
 	url: "/shows/:id/seasons/:season/ratings",
+	optional: [
+	]
+},
+	"/seasons/stats": {
+	opts: {
+	},
+	method: "GET",
+	url: "/shows/:id/seasons/:season/stats",
 	optional: [
 	]
 },
@@ -1392,12 +1510,87 @@ var methods = {
 	optional: [
 	]
 },
+	"/sync/watchlist/reorder": {
+	opts: {
+		auth: true
+	},
+	method: "POST",
+	url: "/sync/watchlist/reorder",
+	body: {
+		rank: null
+	},
+	optional: [
+	]
+},
+	"/sync/recommendations/get": {
+	opts: {
+		auth: true,
+		pagination: "optional",
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/sync/recommendations/:type/:sort",
+	optional: [
+	]
+},
+	"/sync/recommendations/add": {
+	opts: {
+		auth: true
+	},
+	method: "POST",
+	url: "/sync/recommendations",
+	body: {
+		movies: null,
+		shows: null
+	},
+	optional: [
+	]
+},
+	"/sync/recommendations/remove": {
+	opts: {
+		auth: true
+	},
+	method: "POST",
+	url: "/sync/recommendations/remove",
+	body: {
+		movies: null,
+		shows: null
+	},
+	optional: [
+	]
+},
+	"/sync/recommendations/reorder": {
+	opts: {
+		auth: true
+	},
+	method: "POST",
+	url: "/sync/recommendations/reorder",
+	body: {
+		rank: null
+	},
+	optional: [
+	]
+},
 	"/users/settings": {
 	opts: {
 		auth: true
 	},
 	method: "GET",
 	url: "/users/settings",
+	optional: [
+	]
+},
+	"/users/requests/following": {
+	opts: {
+		auth: true,
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/users/requests/following",
 	optional: [
 	]
 },
@@ -1597,6 +1790,16 @@ var methods = {
 	optional: [
 	]
 },
+	"/users/list/likes": {
+	opts: {
+		auth: "optional",
+		pagination: true
+	},
+	method: "GET",
+	url: "/users/:username/lists/:id/likes",
+	optional: [
+	]
+},
 	"/users/list/like/add": {
 	opts: {
 		auth: true
@@ -1779,6 +1982,21 @@ var methods = {
 		"type"
 	]
 },
+	"/users/recommendations": {
+	opts: {
+		auth: true,
+		pagination: "optional",
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/users/:username/recommendations/:type/:sort",
+	optional: [
+		"type",
+		"sort"
+	]
+},
 	"/users/watching": {
 	opts: {
 		auth: "optional"
@@ -1814,7 +2032,7 @@ var methods = {
 
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/8.0.0 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/8.1.1 (https://github.com/sharkykh/trakt.tv-browser)";
 
 var Trakt = /*#__PURE__*/function () {
   function Trakt() {
@@ -1921,7 +2139,7 @@ var Trakt = /*#__PURE__*/function () {
           _this2._authentication.refresh_token = body.refresh_token;
           _this2._authentication.access_token = body.access_token;
           _this2._authentication.expires = (body.created_at + body.expires_in) * 1000;
-          return _this2._sanitize(body);
+          return body;
         })["catch"](function (error) {
           throw error;
         });
@@ -1955,8 +2173,6 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "_device_code",
     value: function _device_code(str, type) {
-      var _this3 = this;
-
       var req = {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/device/").concat(type),
@@ -1970,11 +2186,7 @@ var Trakt = /*#__PURE__*/function () {
       this._debug(req);
 
       return ky__default['default'](req.url, req).then(function (response) {
-        return response.json().then(function (data) {
-          return _this3._sanitize(data);
-        })["catch"](function (error) {
-          throw error;
-        });
+        return response.json();
       })["catch"](function (error) {
         throw error.response && error.response.statusCode == 401 ? Error(error.response.headers['www-authenticate']) : error;
       });
@@ -2041,7 +2253,7 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "_call",
     value: function _call(method, params) {
-      var _this4 = this;
+      var _this3 = this;
 
       if (method.opts['auth'] === true && (!this._authentication.access_token || !this._settings.client_secret)) throw Error('OAuth required');
       var req = {
@@ -2075,21 +2287,21 @@ var Trakt = /*#__PURE__*/function () {
       this._debug(req);
 
       return ky__default['default'](req.url, req).then(function (response) {
-        return _this4._parseResponse(method, params, response);
+        return _this3._parseResponse(method, params, response);
       });
     } // Parse trakt response: pagination & stuff
 
   }, {
     key: "_parseResponse",
     value: function _parseResponse(method, params, response) {
-      var _this5 = this;
+      var _this4 = this;
 
       return response.clone().json()["catch"](function () {
         return response.text();
       }).then(function (data) {
         var parsed = data;
 
-        if (params && params.pagination || _this5._settings.pagination) {
+        if (params && params.pagination || _this4._settings.pagination) {
           parsed = {
             data: data
           };
@@ -2108,42 +2320,8 @@ var Trakt = /*#__PURE__*/function () {
           }
         }
 
-        return _this5._sanitize(parsed);
+        return parsed;
       });
-    } // Sanitize output (xss)
-
-  }, {
-    key: "_sanitize",
-    value: function _sanitize(input) {
-      var sanitizeString = function sanitizeString(string) {
-        return sanitizer.sanitize(string);
-      };
-
-      var sanitizeObject = function sanitizeObject(obj) {
-        var result = obj;
-
-        for (var prop in obj) {
-          result[prop] = obj[prop];
-
-          if (obj[prop] && (obj[prop].constructor === Object || obj[prop].constructor === Array)) {
-            result[prop] = sanitizeObject(obj[prop]);
-          } else if (obj[prop] && obj[prop].constructor === String) {
-            result[prop] = sanitizeString(obj[prop]);
-          }
-        }
-
-        return result;
-      };
-
-      var output = input;
-
-      if (input && (input.constructor === Object || input.constructor === Array)) {
-        output = sanitizeObject(input);
-      } else if (input && input.constructor === String) {
-        output = sanitizeString(input);
-      }
-
-      return output;
     } // Get authentication url for browsers
 
   }, {
@@ -2180,7 +2358,7 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "poll_access",
     value: function poll_access(poll) {
-      var _this6 = this;
+      var _this5 = this;
 
       if (!poll || poll && poll.constructor !== Object) throw Error('Invalid Poll object');
       var begin = Date.now();
@@ -2191,14 +2369,14 @@ var Trakt = /*#__PURE__*/function () {
             return reject(Error('Expired'));
           }
 
-          _this6._device_code({
+          _this5._device_code({
             code: poll.device_code,
-            client_id: _this6._settings.client_id,
-            client_secret: _this6._settings.client_secret
+            client_id: _this5._settings.client_id,
+            client_secret: _this5._settings.client_secret
           }, 'token').then(function (body) {
-            _this6._authentication.refresh_token = body.refresh_token;
-            _this6._authentication.access_token = body.access_token;
-            _this6._authentication.expires = Date.now() + body.expires_in * 1000; // Epoch in milliseconds
+            _this5._authentication.refresh_token = body.refresh_token;
+            _this5._authentication.access_token = body.access_token;
+            _this5._authentication.expires = Date.now() + body.expires_in * 1000; // Epoch in milliseconds
 
             clearInterval(polling);
             resolve(body);
@@ -2231,18 +2409,18 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "import_token",
     value: function import_token(token) {
-      var _this7 = this;
+      var _this6 = this;
 
       this._authentication.access_token = token.access_token;
       this._authentication.expires = token.expires;
       this._authentication.refresh_token = token.refresh_token;
       return new Promise(function (resolve, reject) {
         if (token.expires < Date.now()) {
-          _this7.refresh_token().then(function () {
-            return resolve(_this7.export_token());
+          _this6.refresh_token().then(function () {
+            return resolve(_this6.export_token());
           })["catch"](reject);
         } else {
-          resolve(_this7.export_token());
+          resolve(_this6.export_token());
         }
       });
     } // Export token
