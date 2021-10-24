@@ -2134,7 +2134,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      return ky__default['default'](req.url, req).then(function (response) {
+      return ky__default["default"](req.url, req).then(function (response) {
         return response.json().then(function (body) {
           _this2._authentication.refresh_token = body.refresh_token;
           _this2._authentication.access_token = body.access_token;
@@ -2167,7 +2167,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      ky__default['default'](req.url, req);
+      ky__default["default"](req.url, req);
     } // Get code to paste on login screen
 
   }, {
@@ -2185,7 +2185,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      return ky__default['default'](req.url, req).then(function (response) {
+      return ky__default["default"](req.url, req).then(function (response) {
         return response.json();
       })["catch"](function (error) {
         throw error.response && error.response.statusCode == 401 ? Error(error.response.headers['www-authenticate']) : error;
@@ -2286,7 +2286,7 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      return ky__default['default'](req.url, req).then(function (response) {
+      return ky__default["default"](req.url, req).then(function (response) {
         return _this3._parseResponse(method, params, response);
       });
     } // Parse trakt response: pagination & stuff
@@ -2327,7 +2327,7 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "get_url",
     value: function get_url() {
-      this._authentication.state = randomBytes__default['default'](6).toString('hex'); // Replace 'api' from the api_url to get the top level trakt domain
+      this._authentication.state = randomBytes__default["default"](6).toString('hex'); // Replace 'api' from the api_url to get the top level trakt domain
 
       var base_url = this._settings.endpoint.replace(/api\W/, '');
 
