@@ -2032,7 +2032,7 @@ var methods = {
 
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/8.1.1 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/8.1.2 (https://github.com/sharkykh/trakt.tv-browser)";
 
 var Trakt = /*#__PURE__*/function () {
   function Trakt() {
@@ -2167,7 +2167,9 @@ var Trakt = /*#__PURE__*/function () {
 
       this._debug(req);
 
-      ky__default["default"](req.url, req);
+      return ky__default["default"](req.url, req)["catch"](function (error) {
+        throw error.response && error.response.statusCode == 401 ? Error(error.response.headers['www-authenticate']) : error;
+      });
     } // Get code to paste on login screen
 
   }, {
@@ -2438,10 +2440,12 @@ var Trakt = /*#__PURE__*/function () {
   }, {
     key: "revoke_token",
     value: function revoke_token() {
-      if (this._authentication.access_token) {
-        this._revoke();
+      var _this7 = this;
 
-        this._authentication = {};
+      if (this._authentication.access_token) {
+        return this._revoke().then(function () {
+          _this7._authentication = {};
+        });
       }
     }
   }]);

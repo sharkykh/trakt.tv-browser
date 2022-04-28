@@ -1,6 +1,6 @@
 {
     "name": "trakt.tv-browser",
-    "version": "8.1.1",
+    "version": "8.1.2",
     "description": "Interact with Trakt.tv API in browser",
     "keywords": [
         "trakt",

@@ -118,7 +118,9 @@ export default class Trakt {
             })
         };
         this._debug(req);
-        ky(req.url, req);
+        return ky(req.url, req).catch(error => {
+            throw (error.response && error.response.statusCode == 401) ? Error(error.response.headers['www-authenticate']) : error;
+        });
     }
 
     // Get code to paste on login screen
@@ -370,8 +372,9 @@ export default class Trakt {
     // Revoke token
     revoke_token() {
         if (this._authentication.access_token) {
-            this._revoke();
-            this._authentication = {};
+            return this._revoke().then(() => {
+                this._authentication = {};
+            });
         }
     }
 };
