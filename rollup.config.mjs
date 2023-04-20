@@ -1,7 +1,13 @@
 import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
 import replace from '@rollup/plugin-replace';
-import pkg from './package.json';
+
+import { readFileSync } from 'node:fs';
+
+// Use import.meta.url to make the path relative to the current source
+// file instead of process.cwd(). For more information:
+// https://nodejs.org/docs/latest-v16.x/api/esm.html#importmetaurl
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url)));
 
 export default {
   input: 'src/trakt.js',
@@ -9,11 +15,11 @@ export default {
     file: pkg.main,
     format: 'cjs',
     exports: 'default',
+    interop: 'auto',
   },
   external: [
     'ky',
     'randombytes',
-    'sanitizer'
   ],
   plugins: [
     replace({
