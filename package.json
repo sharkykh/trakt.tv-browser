@@ -21,7 +21,7 @@
         "url": "https://github.com/sharkykh/trakt.tv-browser/issues"
     },
     "dependencies": {
-        "ky": "^0.28.6",
+        "ky": "^0.33.3",
         "randombytes": "^2.1.0"
     },
     "scripts": {

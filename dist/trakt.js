@@ -673,6 +673,14 @@ var methods = {
 	optional: [
 	]
 },
+	"/movies/studios": {
+	opts: {
+	},
+	method: "GET",
+	url: "/movies/:id/studios",
+	optional: [
+	]
+},
 	"/movies/watching": {
 	opts: {
 		extended: [
@@ -734,6 +742,29 @@ var methods = {
 	optional: [
 		"type",
 		"sort"
+	]
+},
+	"/people/updates/get": {
+	opts: {
+		pagination: true,
+		extended: [
+			"full"
+		]
+	},
+	method: "GET",
+	url: "/people/updates/:start_date?limit=",
+	optional: [
+		"limit"
+	]
+},
+	"/people/updates/id": {
+	opts: {
+		pagination: true
+	},
+	method: "GET",
+	url: "/people/updates/id/:start_date?limit=",
+	optional: [
+		"limit"
 	]
 },
 	"/recommendations/movies/get": {
@@ -1109,6 +1140,14 @@ var methods = {
 	},
 	method: "GET",
 	url: "/shows/:id/stats",
+	optional: [
+	]
+},
+	"/shows/studios": {
+	opts: {
+	},
+	method: "GET",
+	url: "/shows/:id/studios",
 	optional: [
 	]
 },
@@ -1683,13 +1722,23 @@ var methods = {
 },
 	"/users/likes": {
 	opts: {
-		auth: true,
+		auth: "optional",
 		pagination: true
 	},
 	method: "GET",
 	url: "/users/:username/likes/:type",
 	optional: [
 		"type"
+	]
+},
+	"/users/saved_filters": {
+	opts: {
+		auth: true,
+		pagination: true
+	},
+	method: "GET",
+	url: "/users/saved_filters/:section",
+	optional: [
 	]
 },
 	"/users/profile": {
@@ -1740,6 +1789,15 @@ var methods = {
 	},
 	method: "GET",
 	url: "/users/:username/lists",
+	optional: [
+	]
+},
+	"/users/lists/collaborations": {
+	opts: {
+		auth: "optional"
+	},
+	method: "GET",
+	url: "/users/:username/lists/collaborations",
 	optional: [
 	]
 },
@@ -2048,7 +2106,7 @@ var methods = {
 // default settings
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/8.1.3 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/8.2.0 (https://github.com/sharkykh/trakt.tv-browser)";
 var Trakt = /*#__PURE__*/function () {
   function Trakt() {
     var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
