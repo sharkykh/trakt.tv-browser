@@ -465,6 +465,12 @@
         "url": "/movies/:id/stats",
         "optional": []
     },
+    "/movies/studios": {
+        "opts": {},
+        "method": "GET",
+        "url": "/movies/:id/studios",
+        "optional": []
+    },
     "/movies/watching": {
         "opts": {
             "extended": ["full"]
@@ -510,6 +516,23 @@
         "method": "GET",
         "url": "/people/:id/lists/:type/:sort",
         "optional": ["type", "sort"]
+    },
+    "/people/updates/get": {
+        "opts": {
+            "pagination": true,
+            "extended": ["full"]
+        },
+        "method": "GET",
+        "url": "/people/updates/:start_date?limit=",
+        "optional": ["limit"]
+    },
+    "/people/updates/id": {
+        "opts": {
+            "pagination": true
+        },
+        "method": "GET",
+        "url": "/people/updates/id/:start_date?limit=",
+        "optional": ["limit"]
     },
     "/recommendations/movies/get": {
         "opts": {
@@ -790,6 +813,12 @@
         "opts": {},
         "method": "GET",
         "url": "/shows/:id/stats",
+        "optional": []
+    },
+    "/shows/studios": {
+        "opts": {},
+        "method": "GET",
+        "url": "/shows/:id/studios",
         "optional": []
     },
     "/shows/watching": {
@@ -1252,12 +1281,21 @@
     },
     "/users/likes": {
         "opts": {
-            "auth": true,
+            "auth": "optional",
             "pagination": true
         },
         "method": "GET",
         "url": "/users/:username/likes/:type",
         "optional": ["type"]
+    },
+    "/users/saved_filters": {
+        "opts": {
+            "auth": true,
+            "pagination": true
+        },
+        "method": "GET",
+        "url": "/users/saved_filters/:section",
+        "optional": []
     },
     "/users/profile": {
         "opts": {
@@ -1293,6 +1331,14 @@
         },
         "method": "GET",
         "url": "/users/:username/lists",
+        "optional": []
+    },
+    "/users/lists/collaborations": {
+        "opts": {
+            "auth": "optional"
+        },
+        "method": "GET",
+        "url": "/users/:username/lists/collaborations",
         "optional": []
     },
     "/users/lists/create": {
