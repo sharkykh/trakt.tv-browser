@@ -29,11 +29,11 @@
         "docs": "node docs/methods-generator"
     },
     "devDependencies": {
-        "@babel/core": "^7.21.4",
-        "@babel/preset-env": "^7.21.4",
-        "@rollup/plugin-babel": "^6.0.3",
-        "@rollup/plugin-json": "^6.0.0",
-        "@rollup/plugin-replace": "^5.0.2",
-        "rollup": "3.20.6"
+        "@babel/core": "^7.23.9",
+        "@babel/preset-env": "^7.23.9",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-replace": "^5.0.5",
+        "rollup": "4.12.0"
     }
 }
