@@ -2106,7 +2106,7 @@ var methods = {
 // default settings
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/8.2.0 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/8.2.1-0 (https://github.com/sharkykh/trakt.tv-browser)";
 var Trakt = /*#__PURE__*/function () {
   function Trakt() {
     var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
