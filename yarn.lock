@@ -1341,10 +1341,10 @@ json5@^2.2.3:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
-ky@^0.33.3:
-  version "0.33.3"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.33.3.tgz#bf1ad322a3f2c3428c13cfa4b3af95e6c4a2f543"
-  integrity sha512-CasD9OCEQSFIam2U8efFK81Yeg8vNMTBUqtMOHlrcWQHqUX3HeCl9Dr31u4toV7emlH8Mymk5+9p0lL6mKb/Xw==
+ky@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-1.2.1.tgz#699dcc7020feb02c755fdf84fe768101e4f32757"
+  integrity sha512-7L6uTdeFQdmCmHCQ3I/K/bbU1OphhHkHgJcD8AJFiG70FOppdrnAnbZDcL1pxtW5mgieX/nQISEoDKxnJ5Ib2w==
 
 lodash.debounce@^4.0.8:
   version "4.0.8"
