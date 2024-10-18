@@ -12,11 +12,11 @@ function _toPrimitive(t, r) {
   if ("object" != typeof t || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
-    var i = e.call(t, r || "default");
+    var i = e.call(t, r);
     if ("object" != typeof i) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return ("string" === r ? String : Number)(t);
+  return (String )(t);
 }
 function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
@@ -38,7 +38,6 @@ function _defineProperties(target, props) {
 }
 function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
     writable: false
   });
