@@ -24,7 +24,7 @@
         "ky": "^1.2.1",
         "randombytes": "^2.1.0"
     },
-    "packageManager": "yarn@1.22.22",
+    "packageManager": "yarn@4.13.0",
     "scripts": {
         "build": "rollup -c rollup.config.mjs",
         "docs": "node docs/methods-generator"
