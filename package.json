@@ -21,7 +21,7 @@
         "url": "https://github.com/sharkykh/trakt.tv-browser/issues"
     },
     "dependencies": {
-        "ky": "^1.2.1",
+        "ky": "^1.14.3",
         "randombytes": "^2.1.0"
     },
     "packageManager": "yarn@4.13.0",
@@ -30,11 +30,11 @@
         "docs": "node docs/methods-generator"
     },
     "devDependencies": {
-        "@babel/core": "^7.23.9",
-        "@babel/preset-env": "^7.23.9",
-        "@rollup/plugin-babel": "^6.0.4",
+        "@babel/core": "^7.29.0",
+        "@babel/preset-env": "^7.29.2",
+        "@rollup/plugin-babel": "^7.0.0",
         "@rollup/plugin-json": "^6.1.0",
-        "@rollup/plugin-replace": "^5.0.5",
-        "rollup": "^4.59.0"
+        "@rollup/plugin-replace": "^6.0.3",
+        "rollup": "^4.60.1"
     }
 }

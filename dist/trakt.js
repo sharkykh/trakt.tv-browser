@@ -8,6 +8,20 @@ function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
 var ky__default = /*#__PURE__*/_interopDefault(ky);
 var randomBytes__default = /*#__PURE__*/_interopDefault(randomBytes);
 
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    writable: false
+  }), e;
+}
 function _toPrimitive(t, r) {
   if ("object" != typeof t || !t) return t;
   var e = t[Symbol.toPrimitive];
@@ -20,28 +34,7 @@ function _toPrimitive(t, r) {
 }
 function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
-  return "symbol" == typeof i ? i : String(i);
-}
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
-  }
-}
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  Object.defineProperty(Constructor, "prototype", {
-    writable: false
-  });
-  return Constructor;
+  return "symbol" == typeof i ? i : i + "";
 }
 
 var methods = {
@@ -2128,7 +2121,7 @@ var Trakt = /*#__PURE__*/function () {
   }
 
   // Creates methods for all requests
-  _createClass(Trakt, [{
+  return _createClass(Trakt, [{
     key: "_construct",
     value: function _construct() {
       var _this = this;
@@ -2498,7 +2491,6 @@ var Trakt = /*#__PURE__*/function () {
       }
     }
   }]);
-  return Trakt;
 }();
 
 module.exports = Trakt;
