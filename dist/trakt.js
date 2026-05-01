@@ -2275,7 +2275,7 @@ var Trakt = /*#__PURE__*/function () {
             pathParts.push(param);
           } else {
             // check for missing required params
-            if (method.optional && method.optional.indexOf(pathParams[k].substr(1)) === -1) throw Error("Missing mandatory paramater: ".concat(pathParams[k].substr(1)));
+            if (method.optional && method.optional.indexOf(pathParams[k].substr(1)) === -1) throw Error("Missing mandatory parameter: ".concat(pathParams[k].substr(1)));
           }
         }
       }
@@ -2390,7 +2390,7 @@ var Trakt = /*#__PURE__*/function () {
       });
     }
 
-    // Get authentification codes for devices
+    // Get authentication codes for devices
   }, {
     key: "get_codes",
     value: function get_codes() {
