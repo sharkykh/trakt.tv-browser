@@ -172,7 +172,7 @@ export default class Trakt {
                     pathParts.push(param);
                 } else {
                     // check for missing required params
-                    if (method.optional && method.optional.indexOf(pathParams[k].substr(1)) === -1) throw Error(`Missing mandatory paramater: ${pathParams[k].substr(1)}`);
+                    if (method.optional && method.optional.indexOf(pathParams[k].substr(1)) === -1) throw Error(`Missing mandatory parameter: ${pathParams[k].substr(1)}`);
                 }
             }
         }
@@ -288,7 +288,7 @@ export default class Trakt {
         });
     }
 
-    // Get authentification codes for devices
+    // Get authentication codes for devices
     get_codes() {
         return this._device_code({
             client_id: this._settings.client_id
