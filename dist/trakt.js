@@ -2098,7 +2098,7 @@ var methods = {
 // default settings
 var defaultUrl = 'https://api.trakt.tv';
 var redirectUrn = 'urn:ietf:wg:oauth:2.0:oob';
-var defaultUa = "trakt.tv-browser/8.2.1-2 (https://github.com/sharkykh/trakt.tv-browser)";
+var defaultUa = "trakt.tv-browser/8.2.1-3 (https://github.com/sharkykh/trakt.tv-browser)";
 var Trakt = /*#__PURE__*/function () {
   function Trakt() {
     var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -2181,7 +2181,7 @@ var Trakt = /*#__PURE__*/function () {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/token"),
         timeout: this._settings.timeout,
-        headers: Object.assign(this._uaHeader, {
+        headers: Object.assign(this._uaHeader(), {
           'Content-Type': 'application/json'
         }),
         body: JSON.stringify(str)
@@ -2209,7 +2209,7 @@ var Trakt = /*#__PURE__*/function () {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/revoke"),
         timeout: this._settings.timeout,
-        headers: Object.assign(this._uaHeader, {
+        headers: Object.assign(this._uaHeader(), {
           'Content-Type': 'application/json'
         }),
         body: JSON.stringify({
@@ -2232,7 +2232,7 @@ var Trakt = /*#__PURE__*/function () {
         method: 'POST',
         url: "".concat(this._settings.endpoint, "/oauth/device/").concat(type),
         timeout: this._settings.timeout,
-        headers: Object.assign(this._uaHeader, {
+        headers: Object.assign(this._uaHeader(), {
           'Content-Type': 'application/json'
         }),
         body: JSON.stringify(str)
@@ -2309,7 +2309,7 @@ var Trakt = /*#__PURE__*/function () {
         method: method.method,
         url: this._parse(method, params),
         timeout: this._settings.timeout,
-        headers: Object.assign(this._uaHeader, {
+        headers: Object.assign(this._uaHeader(), {
           'Content-Type': 'application/json',
           'trakt-api-version': '2',
           'trakt-api-key': this._settings.client_id

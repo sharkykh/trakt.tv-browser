@@ -80,7 +80,7 @@ export default class Trakt {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/token`,
             timeout: this._settings.timeout,
-            headers: Object.assign(this._uaHeader, {
+            headers: Object.assign(this._uaHeader(), {
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(str)
@@ -108,7 +108,7 @@ export default class Trakt {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/revoke`,
             timeout: this._settings.timeout,
-            headers: Object.assign(this._uaHeader, {
+            headers: Object.assign(this._uaHeader(), {
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({
@@ -129,7 +129,7 @@ export default class Trakt {
             method: 'POST',
             url: `${this._settings.endpoint}/oauth/device/${type}`,
             timeout: this._settings.timeout,
-            headers: Object.assign(this._uaHeader, {
+            headers: Object.assign(this._uaHeader(), {
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(str)
@@ -209,7 +209,7 @@ export default class Trakt {
             method: method.method,
             url: this._parse(method, params),
             timeout: this._settings.timeout,
-            headers: Object.assign(this._uaHeader, {
+            headers: Object.assign(this._uaHeader(), {
                 'Content-Type': 'application/json',
                 'trakt-api-version': '2',
                 'trakt-api-key': this._settings.client_id
