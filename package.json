@@ -30,7 +30,7 @@
         "docs": "node docs/methods-generator"
     },
     "devDependencies": {
-        "@babel/core": "^7.29.0",
+        "@babel/core": "^7.29.6",
         "@babel/preset-env": "^7.29.5",
         "@rollup/plugin-babel": "^7.0.0",
         "@rollup/plugin-json": "^6.1.0",
